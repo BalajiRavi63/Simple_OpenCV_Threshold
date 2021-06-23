@@ -1,0 +1,18 @@
+import cv2
+img=cv2.imread('pic2.jpg')
+# scale_percent = 220
+# width = int(mimg.shape[1] * scale_percent / 100)
+# height = int(mimg.shape[0] * scale_percent / 100)
+# dim = (width, height)
+# img = cv2.resize(mimg, dim, interpolation = cv2.INTER_AREA)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+grayshow=cv2.imshow("GrayImage", gray)
+cv2.waitKey(0)
+gaussian_blur=cv2.GaussianBlur(gray,(11,11),20)
+cv2.imshow("GAUSSIAN BLUR",gaussian_blur)
+cv2.waitKey(0)
+T , otsu_thres = cv2.threshold (gaussian_blur, 45, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+print("The Threshold value = {}".format(T))
+cv2.imshow("Threshold", otsu_thres )
+cv2.imwrite("otsu.jpg", otsu_thres)
+cv2.waitKey(0)
